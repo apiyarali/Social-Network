@@ -20,12 +20,12 @@ Network is a Django-powered web application that mimics core features of Twitter
 
 1. Clone or Download the Project
 2. Apply Migrations
-   bash```
+   ```
    python manage.py makemigrations network
    python manage.py migrate
    ```
 3. Run the Server
-   bash```
+   ```
    python manage.py runserver
    ```
 4. Open in Browser
