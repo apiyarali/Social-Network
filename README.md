@@ -20,14 +20,14 @@ Network is a Django-powered web application that mimics core features of Twitter
 
 1. Clone or Download the Project
 2. Apply Migrations
-   ```
-   python manage.py makemigrations network
-   python manage.py migrate
-   ```
+```
+python manage.py makemigrations network
+python manage.py migrate
+```
 3. Run the Server
-   ```
-   python manage.py runserver
-   ```
+```
+python manage.py runserver
+```
 4. Open in Browser
    Visit http://127.0.0.1:8000/ in your browser to register and start posting!
 
