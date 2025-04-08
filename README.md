@@ -1,6 +1,6 @@
 ## 📡 Social Network - A Twitter-like Social Network
 
-Network is a Django-powered web application that mimics core features of Twitter, allowing users to create posts, follow others, like content, and manage social interactions—all within a dynamic and responsive interface.
+Social Network is a Django-powered web application that mimics core features of Twitter, allowing users to create posts, follow others, like content, and manage social interactions—all within a dynamic and responsive interface.
 
 ## 🚀 Features
 
