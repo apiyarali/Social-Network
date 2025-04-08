@@ -1,0 +1,34 @@
+Code techniques used in this project which are outside of course are taken from:
+
+MODEL FORMS:
+
+Styling using widgets:
+https://www.youtube.com/watch?v=Y4ieyOCC3gU
+
+PAGINATION:
+
+Pagination Functionality:
+https://docs.djangoproject.com/en/3.0/topics/pagination/
+https://simpleisbetterthancomplex.com/tutorial/2016/08/03/how-to-paginate-with-django.html
+
+Pagination Views:
+https://www.caktusgroup.com/blog/2018/10/18/filtering-and-pagination-django/
+https://codeloop.org/django-pagination-complete-example/
+https://labofcoding.com/pagination-django/
+https://overiq.com/django-1-10/pagination-in-django/
+
+Pagination Styling:
+https://getbootstrap.com/docs/4.4/components/pagination/
+
+Return to same page after event (HTTP_REFERER):
+https://stackoverflow.com/questions/26798623/how-to-return-the-result-on-same-page-in-django
+
+QUERY SETS:
+
+Query Filter (passing queryset via __in):
+https://docs.djangoproject.com/en/3.0/ref/models/querysets/#in
+
+
+
+
+

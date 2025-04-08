@@ -1,0 +1,32 @@
+{% extends "network/index.html" %}
+
+{% block page %}
+
+    <div class="row">
+        <div class="col">
+            <h4>User: {{ postUser.username }}</h4>
+        </div>
+        <div class="col d-flex justify-content-center">
+            <h5>Following: {{ following }} </h5>
+        </div>
+        <div class="col d-flex justify-content-center">
+            <h5>Followers: {{ follower }} </h5>
+        </div>
+        <div class="col d-flex justify-content-end">
+            {% if user.is_authenticated %}
+                {% if user != postUser %}
+                    <form action="{% url 'follow' postUser.id %}" id="follow" method ="post">
+                    {% csrf_token %}
+                        {% if postUser not in user.followers.all %}
+                            <input type="Submit" class="btn btn-primary" name="follow" value="Follow">
+                        {% else %}
+                            <input type="Submit" class="btn btn-primary" name="unfollow" value="Un-follow">
+                        {% endif %}
+                    </form>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+
+{% endblock %}

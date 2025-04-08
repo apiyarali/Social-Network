@@ -1,0 +1,167 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    
+    <div class="container">
+
+        {% comment %} Block for profile & following page  {% endcomment %}
+        <div class="page mt-3 ml-5 mr-5">
+            {% block page %}
+            {% endblock %}
+        </div>
+
+        {% comment %} New post form {% endcomment %}
+        {% if user.is_authenticated %}
+            <div class="card m-5">
+                <form action="{% url 'new' %}" id="newPost" method ="post">
+                {% csrf_token %}
+                    <div class="row m-3 mr-5">
+                        <div class="col">
+                            <div class="form-group">
+                                {{ form }}
+                            </div>
+                            <div class="form-group">
+                                <input type="Submit" class="btn btn-primary" value="Post">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+
+        {% comment %} Display posts {% endcomment %}
+        {% for post in page_obj %}
+
+            {% comment %} Post header {% endcomment %}
+            <div class="card m-5">
+                <div class="card-header" id="post-{{ post.id }}">
+                    <ul class="nav card-header-tabs">
+                        <li class="nav-item">
+                            {% if post.user == user %}
+                                <a class="nav-link" href="{% url 'profile' %}">
+                                    <h5>{{ post.user.username }}</h5>
+                                </a>
+                            {% else %}
+                                <a class="nav-link" href="{% url 'userPosts' post.user.id %}">
+                                    <h5>{{ post.user.username }}</h5>
+                                </a>
+                            {% endif %}
+                        </li>
+
+                        {% comment %} Follow / Un-follow {% endcomment %}
+                        {% if user.is_authenticated %}
+                            {% if user != post.user %}
+                                <li class="nav-item text-muted">
+                                    <form action="{% url 'follow' post.user.id %}" method ="post">
+                                    {% csrf_token %}
+                                        {% if post.user not in user.followers.all %}
+                                            <input type="Submit" class="btn btn-outline-primary btn-link" name="follow" value="Follow">
+                                        {% else %}
+                                            <input type="Submit" class="btn btn-outline-primary btn-link" name="unfollow" value="Un-follow">
+                                        {% endif %}
+                                    </form>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </div>
+
+                {% comment %} Post content {% endcomment %}
+                <div class="card-body">
+                    <p id="content-{{ post.id }}" class="card-text">{{ post.post }}</p>
+
+                    {% comment %} Edit {% endcomment %}
+                    {% if user.is_authenticated %}
+                        {% if post.user == user %}
+                            <button class="btn btn-outline-primary btn-link" onclick="edit('{{ post.id }}')" id="editbtn-{{ post.id }}">
+                                Edit
+                            </button>
+                            <textarea cols="10" rows="4" class="form-control text-height" id="edit-{{ post.id }}" 
+                                style="display: none;">{{ post.post }}</textarea>
+                            <button class="btn btn-outline-primary btn-link" onclick="save('{{ post.id }}')" 
+                                style="display: none;" id="savebtn-{{ post.id }}">
+                                Save
+                            </button>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                {% comment %} Post footer {% endcomment %}
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col text-muted text-left">
+
+                            {% comment %} Like / Unlike {% endcomment %}
+                            {% if user.is_authenticated %}
+                                <button id="likebtn-{{post.id}}" class="btn-link" onclick="like('{{ post.id }}')">
+                                    {% if user in post.like.all %}
+                                        <i id="likeToggle-{{ post.id }}" class="fa fa-heart"></i>
+                                    {% else %}
+                                        <i id="likeToggle-{{ post.id }}" class="fa fa-heart-o"></i>
+                                    {% endif %}
+                                </button>
+                                {% if post.like.count > 0 %}
+                                    <span id="count-{{ post.id }}">{{ post.like.count }}</span>
+                                {% else %}
+                                    <span id="count-{{ post.id }}"></span> 
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="col text-muted text-right">
+                            {{ post.created }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        {% endfor %}
+
+        {% comment %} Pagination {% endcomment %}
+        <nav aria-label="Page navigation" class="m-5">
+            <ul class="pagination">
+
+                {% comment %} First / Previous pagination {% endcomment %}
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">First</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    </li>
+                {% endif %}
+
+                {% comment %} Middle page pagination {% endcomment %}
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="page-item active">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>    
+                    {% endif %}
+                {% endfor %}
+
+                {% comment %} Next / Last pagination {% endcomment %}
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>  
+    </div>
+
+{% endblock %}
+
+{% comment %} Script {% endcomment %}
+{% block script %}
+
+    <script src="{% static 'network/network.js' %}"></script>
+
+{% endblock %}
