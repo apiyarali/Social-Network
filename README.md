@@ -57,6 +57,5 @@ python manage.py runserver
 * Infinite scroll instead of pagination.
 * REST API support for external client consumption.
 
-## 📃 License
-
-This project is part of Harvard's CS80 Web Programming course.
+## Inspiration
+Project inspired by Harvard's CS33 Web Programming curriculum.
