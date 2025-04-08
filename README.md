@@ -2,9 +2,9 @@
 
 Network is a Django-powered web application that mimics core features of Twitter, allowing users to create posts, follow others, like content, and manage social interactions—all within a dynamic and responsive interface.
 
-<img src="https://github.com/apiyarali/Social-Network/blob/806e82e80e396c2463ab6cbb5406fa8dc7ef7cc5/screenshots/network_main.jpg" alt="wiki_main" width="250">
-
 ## 🚀 Features
+
+<img src="https://github.com/apiyarali/Social-Network/blob/806e82e80e396c2463ab6cbb5406fa8dc7ef7cc5/screenshots/network_main.jpg" alt="wiki_main" width="300">
 
 * User Authentication: Secure registration, login, and logout flows.
 * Post Creation & Editing: Compose, edit, and publish text-based posts.
